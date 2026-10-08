@@ -4,9 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex</title>
-    <link rel="icon" type="image/x-icon" href="./assets/img/pokeball-icon.png">
+    <link rel="icon" type="image/x-icon" href="./assets/icons/pokeball-icon.png">
+
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./styles/fonts.css">
+    <link rel="stylesheet" href="./styles/assets.css">
+    <link rel="stylesheet" href="./styles/standard.css">
+
+    <script src="https://kit.fontawesome.com/34f6182fea.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    
+    <header>
+        <div class="img-pokemon-wrapper">
+            <div>
+                <img src="./assets/img/pokeball-header.png">
+            </div>
+            <div>
+                <p class="test">Pokemon</p>
+            </div>
+        </div>
+        <div class="searchbar">
+            <input type="text" placeholder="Search..">
+            <button>
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <div id="all-pokemon-wrapper"></div>
+    </main>
+
+    <footer>© Michelle Reuter</footer>
+
+    <script src="./scripts/template.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
