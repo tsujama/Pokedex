@@ -5,6 +5,7 @@ let url = `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${count}`;
 let urlResultArray = [];
 let urlsArrayOfAllPokemons = [];
 let pokemons = [];
+let pokemonCache = {};
 
 
 
@@ -32,14 +33,21 @@ async function getPokemons() {
 
 async function renderPokemons() {
     let pokemonHTML = "";
+
     for (let i = 0; i < urlsArrayOfAllPokemons.length; i++) {
-        let response = await fetch(urlsArrayOfAllPokemons[i]);  
-        pokemons.push(await response.json()); 
+
+        if (!pokemonCache[urlsArrayOfAllPokemons[i]]) {
+            let response = await fetch(urlsArrayOfAllPokemons[i]);
+            pokemonCache[urlsArrayOfAllPokemons[i]] = await response.json();
+        }
+
+        pokemons.push(pokemonCache[urlsArrayOfAllPokemons[i]]);
         pokemonHTML += getPokemonTemplate(i);
     }
-    console.log(pokemons);
-    pokemonsRef.innerHTML= pokemonHTML;
+
+    pokemonsRef.innerHTML = pokemonHTML;
     await getType();
+    console.log(pokemonCache);
 }
 
 function checkBackgroundColor(i, colorHex) {
@@ -88,7 +96,7 @@ async function getType() {
                     checkBackgroundColor(i, "#70CCBD");
                     break;
 
-                case "fight":
+                case "fighting":
                     typeImg = "07_Kampf.png"
                     checkBackgroundColor(i, "#CE4265");
                     break;
@@ -108,7 +116,7 @@ async function getType() {
                     checkBackgroundColor(i, "#90A7DA");
                     break;
 
-                case "psycho":
+                case "psychic":
                     typeImg = "11_Psycho.png"
                     checkBackgroundColor(i, "#F66F71");
                     break;
@@ -158,10 +166,13 @@ async function getType() {
 }
 
 function showNextPokemon() {
+    let prevButtonRef = document.getElementById("button-previous");
+
+    prevButtonRef.classList.remove("hidden");
+
     if(count < 1000) {
         count = count + 20;
         url = `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${count}`;
-        pokemonsRef.innerHTML = "";
         urlResultArray = [];
         urlsArrayOfAllPokemons = [];
         pokemons = [];
@@ -176,7 +187,6 @@ function showPreviousPokemon() {
     if(count > 0) {
         count = count - 20;
         url = `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${count}`;
-        pokemonsRef.innerHTML = "";
         urlResultArray = [];
         urlsArrayOfAllPokemons = [];
         pokemons = [];
@@ -184,9 +194,11 @@ function showPreviousPokemon() {
         init();
     }
 
-    if(count = 0) {
+    if(count == 0) {
         prevButtonRef.classList.add("hidden");
     }
 }
+
+
 
 
