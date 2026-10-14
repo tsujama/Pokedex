@@ -4,14 +4,22 @@ let url = `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${count}`;
 
 let urlResultArray = [];
 let urlsArrayOfAllPokemons = [];
-let pokemons = [];
+let pokemonsCurrentPage = [];
+let filteredPokemons = [];
 let pokemonCache = {};
 
-
-
 async function init() {
+    let loadingBarRef = document.getElementById("loading-bar");
+    let nextButtonRef = document.getElementById("button-next");
+
+    loadingBarRef.classList.remove("hidden");
+    nextButtonRef.disabled = true;
+
     await getPokemonURL();
     await renderPokemons();
+
+    loadingBarRef.classList.add("hidden");
+    nextButtonRef.disabled = false;
 }
 
 async function getPokemonURL() {
@@ -20,9 +28,6 @@ async function getPokemonURL() {
     for (let i = 0; i < urlResultArray.results.length; i++) {
         urlsArrayOfAllPokemons.push(urlResultArray.results[i].url);
     }
-    console.log(urlResultArray);
-    console.log(urlResultArray.results);
-    console.log(urlsArrayOfAllPokemons);
 }
 
 async function getPokemons() {
@@ -41,13 +46,17 @@ async function renderPokemons() {
             pokemonCache[urlsArrayOfAllPokemons[i]] = await response.json();
         }
 
-        pokemons.push(pokemonCache[urlsArrayOfAllPokemons[i]]);
+        pokemonsCurrentPage.push(pokemonCache[urlsArrayOfAllPokemons[i]]);
+    }
+
+    filteredPokemons = pokemonsCurrentPage;
+
+    for (let i = 0; i < filteredPokemons.length; i++) {
         pokemonHTML += getPokemonTemplate(i);
     }
 
     pokemonsRef.innerHTML = pokemonHTML;
     await getType();
-    console.log(pokemonCache);
 }
 
 function checkBackgroundColor(i, colorHex) {
@@ -59,13 +68,13 @@ function checkBackgroundColor(i, colorHex) {
 }
 
 async function getType() {
-    for (let i = 0; i < pokemons.length; i++) {
-        for (let j = 0; j < pokemons[i].types.length; j++) {
+    for (let i = 0; i < filteredPokemons.length; i++) {
+        for (let j = 0; j < filteredPokemons[i].types.length; j++) {
             let pokemonTypesDivRef = document.getElementById("pokemon-types"+i);
             let pokemonImgDivRef = document.getElementById("pokemon-img"+i)
             let typeImg = "";
 
-            switch (pokemons[i].types[j].type.name) {
+            switch (filteredPokemons[i].types[j].type.name) {
                 case "normal":
                     typeImg = "01_Normal.png"
                     checkBackgroundColor(i, "#9298A4");
@@ -165,9 +174,9 @@ async function getType() {
     }
 }
 
-function showNextPokemon() {
+async function showNextPokemon() {
     let prevButtonRef = document.getElementById("button-previous");
-
+    
     prevButtonRef.classList.remove("hidden");
 
     if(count < 1000) {
@@ -175,9 +184,9 @@ function showNextPokemon() {
         url = `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${count}`;
         urlResultArray = [];
         urlsArrayOfAllPokemons = [];
-        pokemons = [];
+        pokemonsCurrentPage = [];
 
-        init();
+        await init();
     }
 }
 
@@ -189,7 +198,7 @@ function showPreviousPokemon() {
         url = `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${count}`;
         urlResultArray = [];
         urlsArrayOfAllPokemons = [];
-        pokemons = [];
+        pokemonsCurrentPage = [];
 
         init();
     }

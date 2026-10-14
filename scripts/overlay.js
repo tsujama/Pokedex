@@ -9,9 +9,8 @@ function overlayOn(i) {
 
     getDetailPokemonAbilities(pokemonDetailIndex);
     overlayRef.innerHTML = getPokemonDetailTemplate(pokemonDetailIndex, abilities);
-    console.log(pokemons);
 
-    togglePrevButton();
+    toggleDetailButton();
 }
 
 function overlayOff() {
@@ -21,13 +20,13 @@ function overlayOff() {
 function showNextDetailPokemon(i) {
     let overlayRef = document.getElementById("overlay");
 
-    if (pokemonDetailIndex < pokemons.length - 1) {
+    if (pokemonDetailIndex < filteredPokemons.length - 1) {
         pokemonDetailIndex++;
     }
     getDetailPokemonAbilities(pokemonDetailIndex);
     overlayRef.innerHTML = getPokemonDetailTemplate(pokemonDetailIndex, abilities);
 
-    togglePrevButton();
+    toggleDetailButton();
 }
 
 function showPreviousDetailPokemon(i) {
@@ -38,27 +37,34 @@ function showPreviousDetailPokemon(i) {
     }
     getDetailPokemonAbilities(pokemonDetailIndex);
     overlayRef.innerHTML = getPokemonDetailTemplate(pokemonDetailIndex, abilities);
-    togglePrevButton();
+    toggleDetailButton();
 }
 
-function togglePrevButton() {
+function toggleDetailButton() {
     let prevButtonRef = document.getElementById("button-detail-previous");
+    let nextButtonRef = document.getElementById("button-detail-next");
 
-    if(pokemonDetailIndex > 0) {
+    if (pokemonDetailIndex > 0) {
         prevButtonRef.classList.remove("hidden");
     } else {
         prevButtonRef.classList.add("hidden");
+    }
+
+    if (pokemonDetailIndex < filteredPokemons.length - 1) {
+        nextButtonRef.classList.remove("hidden");
+    } else {
+        nextButtonRef.classList.add("hidden");
     }
 }
 
 function getDetailPokemonAbilities(i) {
     abilities = "";
 
-    for (let j = 0; j < pokemons[i].abilities.length; j++) {
+    for (let j = 0; j < filteredPokemons[i].abilities.length; j++) {
 
         if (j > 0) {
             abilities += ", ";
         }
-        abilities += pokemons[i].abilities[j].ability.name;
+        abilities += filteredPokemons[i].abilities[j].ability.name;
     }
 }

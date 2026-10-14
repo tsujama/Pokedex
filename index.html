@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="searchbar">
-            <input type="text" placeholder="Search..">
+            <input type="text" id="searchbarInput" onkeyup="filterAndShowPokemons()" placeholder="Search..">
             <button>
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
@@ -36,7 +36,8 @@
     <main>
         <button id="button-previous" class="hidden pokemon-main-button" onclick="showPreviousPokemon()">Show previous</button>
         <div id="all-pokemons-wrapper"></div>
-        <button class="pokemon-main-button" onclick="showNextPokemon()">Show next</button>
+        <div id="loading-bar" class="hidden"></div>
+        <button id="button-next" class="pokemon-main-button" onclick="showNextPokemon()">Show next</button>
         <div id="overlay" onclick="overlayOff()">
             
         </div>
@@ -46,5 +47,6 @@
 
     <script src="./scripts/template.js"></script>
     <script src="script.js"></script>
+    <script src="./scripts/searchbar.js"></script>
 </body>
 </html>

@@ -69,3 +69,22 @@ footer {
     height: 50px;
     cursor: pointer;
 }
+
+#loading-bar {
+    width: 35px;
+    height: 35px;
+    border: 5px solid #dddddd;
+    border-top: 5px solid #cd1b31;
+    border-radius: 50%;
+    animation: loading 0.8s linear infinite;
+}
+
+#loading-bar.hidden {
+    display: none;
+}
+
+@keyframes loading {
+    to {
+        transform: rotate(360deg);
+    }
+}
