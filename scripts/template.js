@@ -3,7 +3,7 @@ function getPokemonTemplate(i) {
         <div id="pokemon${i}" class="pokemon" onclick="overlayOn(${i})">
             <div class="pokemon-name"><h2>${filteredPokemons[i].name}</h2></div>
             <div id="pokemon-img${i}" class="pokemon-img">
-                <img src="${filteredPokemons[i].sprites.other.home.front_default}">
+                <img src="${filteredPokemons[i].sprites.other.home.front_default}" loading="lazy">
             </div>
             <div id="pokemon-types${i}" class="pokemon-types">
             
@@ -14,7 +14,7 @@ function getPokemonTemplate(i) {
 
 function getTypesTemplate(i, j, typeImg) {
     return `
-        <span><img src="./assets/img/types/${typeImg}"></span>
+        <span><img src="./assets/img/types/${typeImg}" loading="lazy"></span>
     `;
 }
 
@@ -23,7 +23,7 @@ function getPokemonDetailTemplate(i,abilities) {
         <div class="pokemon-detail-wrapper" onclick="event.stopPropagation()">
             <div class="pokemon-detail-name"><h2>${filteredPokemons[i].name}</h2></div>
             <div class="pokemon-detail-img">
-                <img src="${filteredPokemons[i].sprites.other.home.front_default}">
+                <img src="${filteredPokemons[i].sprites.other.home.front_default}" loading="lazy">
             </div>
             <div id="pokemon-types${i}" class="pokemon-types">
             

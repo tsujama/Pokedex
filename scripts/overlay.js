@@ -6,6 +6,7 @@ function overlayOn(i) {
 
     pokemonDetailIndex = i;
     overlayRef.classList.add("active");
+    document.body.style.overflow = "hidden";
 
     getDetailPokemonAbilities(pokemonDetailIndex);
     overlayRef.innerHTML = getPokemonDetailTemplate(pokemonDetailIndex, abilities);
@@ -15,6 +16,7 @@ function overlayOn(i) {
 
 function overlayOff() {
     document.getElementById("overlay").classList.remove("active");
+    document.body.style.overflow = "";
 }
 
 function showNextDetailPokemon(i) {
