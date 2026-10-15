@@ -1,0 +1,94 @@
+header {
+    background-color: #cd1b31;
+    display: flex;
+    height: 100px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    margin-bottom: 24px
+}
+
+.img-pokemon-wrapper {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+
+    p {
+        font-family: "PocketMonk";
+        font-size: 48px;
+        color: white;
+        text-shadow: -3px -3px 0 black;
+    }
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+}
+
+#all-pokemons-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.pokemon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    width: 25%;
+    height: 400px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.pokemon-name {
+    text-transform: capitalize;
+}
+
+footer {
+   background-color: #cd1b31; 
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100px;
+   margin-top: 24px;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.pokemon-main-button {
+    width: 100px;
+    height: 50px;
+    cursor: pointer;
+}
+
+#loading-bar {
+    width: 35px;
+    height: 35px;
+    border: 5px solid #dddddd;
+    border-top: 5px solid #cd1b31;
+    border-radius: 50%;
+    animation: loading 0.8s linear infinite;
+}
+
+#loading-bar.hidden {
+    display: none;
+}
+
+@keyframes loading {
+    to {
+        transform: rotate(360deg);
+    }
+}

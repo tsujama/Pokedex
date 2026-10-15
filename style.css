@@ -1,4 +1,29 @@
 * {
-    margin: 0;
     box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+}
+
+main {
+    min-height: calc(100vh - 200px);
+}
+
+h1,
+h2,
+h3,
+p {
+    margin: 0;
+}
+
+button,
+input {
+    font: inherit;
 }
