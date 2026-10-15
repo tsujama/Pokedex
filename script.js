@@ -40,7 +40,7 @@ async function renderPokemons() {
     await loadPokemonDetails();
 
     filteredPokemons = pokemonsCurrentPage;
-    
+
     showPokemonCards();
     await getType();
 }
@@ -184,10 +184,6 @@ async function getType() {
 }
 
 async function showNextPokemon() {
-    let prevButtonRef = document.getElementById("button-previous");
-    
-    prevButtonRef.classList.remove("hidden");
-
     if(count < 1000) {
         count = count + 20;
         url = `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${count}`;
