@@ -28,3 +28,7 @@
     background-color: #cd1b31;
 }
 
+.pokemon-detail-name {
+    text-transform: capitalize;  
+}
+

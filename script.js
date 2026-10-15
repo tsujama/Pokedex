@@ -37,26 +37,35 @@ async function getPokemons() {
 }
 
 async function renderPokemons() {
-    let pokemonHTML = "";
-
-    for (let i = 0; i < urlsArrayOfAllPokemons.length; i++) {
-
-        if (!pokemonCache[urlsArrayOfAllPokemons[i]]) {
-            let response = await fetch(urlsArrayOfAllPokemons[i]);
-            pokemonCache[urlsArrayOfAllPokemons[i]] = await response.json();
-        }
-
-        pokemonsCurrentPage.push(pokemonCache[urlsArrayOfAllPokemons[i]]);
-    }
+    await loadPokemonDetails();
 
     filteredPokemons = pokemonsCurrentPage;
+    
+    showPokemonCards();
+    await getType();
+}
+
+async function loadPokemonDetails() {
+    for (let i = 0; i < urlsArrayOfAllPokemons.length; i++) {
+        let pokemonUrl = urlsArrayOfAllPokemons[i];
+
+        if (!pokemonCache[pokemonUrl]) {
+            let response = await fetch(pokemonUrl);
+            pokemonCache[pokemonUrl] = await response.json();
+        }
+
+        pokemonsCurrentPage.push(pokemonCache[pokemonUrl]);
+    }
+}
+
+function showPokemonCards() {
+    let pokemonHTML = "";
 
     for (let i = 0; i < filteredPokemons.length; i++) {
         pokemonHTML += getPokemonTemplate(i);
     }
 
     pokemonsRef.innerHTML = pokemonHTML;
-    await getType();
 }
 
 function checkBackgroundColor(i, colorHex) {
@@ -184,30 +193,7 @@ async function showNextPokemon() {
         url = `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${count}`;
         urlResultArray = [];
         urlsArrayOfAllPokemons = [];
-        pokemonsCurrentPage = [];
 
         await init();
     }
 }
-
-function showPreviousPokemon() {
-    let prevButtonRef = document.getElementById("button-previous");
-
-    if(count > 0) {
-        count = count - 20;
-        url = `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${count}`;
-        urlResultArray = [];
-        urlsArrayOfAllPokemons = [];
-        pokemonsCurrentPage = [];
-
-        init();
-    }
-
-    if(count == 0) {
-        prevButtonRef.classList.add("hidden");
-    }
-}
-
-
-
-

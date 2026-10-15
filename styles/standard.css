@@ -51,6 +51,10 @@ main {
     cursor: pointer;
 }
 
+.pokemon-name {
+    text-transform: capitalize;
+}
+
 footer {
    background-color: #cd1b31; 
    display: flex;
